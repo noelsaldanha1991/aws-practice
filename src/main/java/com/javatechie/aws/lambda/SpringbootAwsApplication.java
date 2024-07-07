@@ -1,6 +1,8 @@
 package com.javatechie.aws.lambda;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +24,7 @@ public class SpringbootAwsApplication {
 
 	@GetMapping
 	public List<Order> getBooks() {
-		return orderDao.buildOrders();// //
+		return orderDao.buildOrders().stream().sorted(Comparator.comparing(Order::getPrice)).collect(Collectors.toList());// //
 	}
 
 	public static void main(String[] args) {
